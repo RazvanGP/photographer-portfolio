@@ -1,0 +1,111 @@
+@keyframes fade {
+  0% {
+    display: block;
+  }
+  40% {
+    display: none;
+  }
+}
+
+/* body {
+  background: rgba(0, 0, 0, 0.5);
+} */
+
+.outerCircle {
+  animation: fade 2s linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #555;
+  transition: all 0.2s linear;
+}
+
+.outerCircle .pipe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 110px;
+  width: 63px;
+  background: white;
+  transition: all 0.2s linear;
+}
+.outerCircle .pipe:nth-child(7) {
+  transform: rotate(0deg);
+}
+.outerCircle .pipe:nth-child(8) {
+  transform: rotate(120deg);
+}
+.outerCircle .pipe:nth-child(9) {
+  transform: rotate(240deg);
+}
+.outerCircle .line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 150px;
+  width: 2px;
+  background: white;
+  transition: all 0.2s linear;
+}
+.outerCircle .line:nth-child(1) {
+  transform: rotate(0deg) translate(62.5px, 75px);
+}
+.outerCircle .line:nth-child(2) {
+  transform: rotate(60deg) translate(62.5px, 75px);
+}
+.outerCircle .line:nth-child(3) {
+  transform: rotate(120deg) translate(62.5px, 75px);
+}
+.outerCircle .line:nth-child(4) {
+  transform: rotate(180deg) translate(62.5px, 75px);
+}
+.outerCircle .line:nth-child(5) {
+  transform: rotate(240deg) translate(62.5px, 75px);
+}
+.outerCircle .line:nth-child(6) {
+  transform: rotate(300deg) translate(62.5px, 75px);
+}
+.outerCircle:hover {
+  transform: rotate(20deg);
+  transition: all 0.2s linear;
+}
+
+.outerCircle:hover .pipe {
+  transition: all 0.2s linear;
+  height: 0;
+  width: 0;
+}
+.outerCircle:hover .line {
+  transition: all 0.2s linear;
+}
+.outerCircle:hover .line:nth-child(1) {
+  transform: rotate(60deg) translate(0, 75px);
+}
+.outerCircle:hover .line:nth-child(2) {
+  transform: rotate(120deg) translate(0, 75px);
+}
+.outerCircle:hover .line:nth-child(3) {
+  transform: rotate(180deg) translate(0, 75px);
+}
+.outerCircle:hover .line:nth-child(4) {
+  transform: rotate(240deg) translate(0, 75px);
+}
+.outerCircle:hover .line:nth-child(5) {
+  transform: rotate(300deg) translate(0, 75px);
+}
+.outerCircle:hover .line:nth-child(6) {
+  transform: rotate(360deg) translate(0px, 75px);
+}
