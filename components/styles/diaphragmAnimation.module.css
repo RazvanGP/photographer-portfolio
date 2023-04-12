@@ -1,0 +1,82 @@
+.container {
+  pointer-events: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  transform: rotate(20deg) scale(2);
+}
+.container .blade {
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: solid 150vh black;
+  border-top: 87vh solid transparent;
+  border-bottom: 87vh solid transparent;
+  border-left-color: transparent;
+  transition: transform 0.2s linear;
+}
+.container .blade:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container .blade:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container .blade:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container .blade:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container .blade:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container .blade:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
+    translate(25%, -50%);
+}
+.container.closed .blade:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.container.closed .blade:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.container.closed .blade:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.container.closed .blade:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.container.closed .blade:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.container.closed .blade:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
+    translate(calc(25% + 1px), -1vh);
+}
+.btn {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}

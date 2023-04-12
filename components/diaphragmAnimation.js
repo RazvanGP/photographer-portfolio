@@ -1,18 +1,28 @@
-import styles from "./styles/diphragmAnimation.module.css";
+import styles from "./styles/diaphragmAnimation.module.css";
+
+import { useState } from "react";
 
 const DiaphragmAnimation = () => {
+  const [shutterEffect, setShutterEffect] = useState(false);
+
   return (
-    <div className={styles.outerCircle}>
-      <div className={styles.line}></div>
-      <div className={styles.line}></div>
-      <div className={styles.line}></div>
-      <div className={styles.line}></div>
-      <div className={styles.line}></div>
-      <div className={styles.line}></div>
-      <div className={styles.pipe}></div>
-      <div className={styles.pipe}></div>
-      <div className={styles.pipe}></div>
-    </div>
+    <>
+      <div className={styles.container + (shutterEffect ? "closed" : "")}>
+        <div className={styles.blade}></div>
+        <div className={styles.blade}></div>
+        <div className={styles.blade}></div>
+        <div className={styles.blade}></div>
+        <div className={styles.blade}></div>
+        <div className={styles.blade}></div>
+      </div>
+
+      <button
+        className={styles.btn}
+        onClick={() => setShutterEffect(!shutterEffect)}
+      >
+        TAKE PICTURE
+      </button>
+    </>
   );
 };
 
