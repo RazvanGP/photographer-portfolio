@@ -35,22 +35,22 @@
 }
 
 .first {
-  animation: blade1 0.5s alternate 2;
+  animation: blade1 0.4s alternate 2;
 }
 .second {
-  animation: blade2 0.5s alternate 2;
+  animation: blade2 0.4s alternate 2;
 }
 .third {
-  animation: blade3 0.5s alternate 2;
+  animation: blade3 0.4s alternate 2;
 }
 .fourth {
-  animation: blade4 0.5s alternate 2;
+  animation: blade4 0.4s alternate 2;
 }
 .fifth {
-  animation: blade5 0.5s alternate 2;
+  animation: blade5 0.4s alternate 2;
 }
 .sixth {
-  animation: blade6 0.5s alternate 2;
+  animation: blade6 0.4s alternate 2;
 }
 
 @keyframes blade1 {

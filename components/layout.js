@@ -1,8 +1,14 @@
 import Head from "next/head";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { Context } from "../context/context";
+import { useContext } from "react";
+
+import DiaphragmAnimation from "./diaphragmAnimation";
 
 const Layout = ({ children }) => {
+  const { shutterEffect } = useContext(Context);
+
   return (
     <>
       <Head>
@@ -22,7 +28,11 @@ const Layout = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <main>{children}</main>
+      <main>
+        {shutterEffect && <DiaphragmAnimation />}
+
+        {children}
+      </main>
       <footer>
         <Footer />
       </footer>
