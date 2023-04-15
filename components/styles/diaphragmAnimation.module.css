@@ -19,56 +19,9 @@
   border-top: 87vh solid transparent;
   border-bottom: 87vh solid transparent;
   border-left-color: transparent;
-  transition: transform 0.2s linear;
+  transition: transform 2s linear;
 }
-.container .blade:nth-child(1) {
-  transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container .blade:nth-child(2) {
-  transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container .blade:nth-child(3) {
-  transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container .blade:nth-child(4) {
-  transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container .blade:nth-child(5) {
-  transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container .blade:nth-child(6) {
-  transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
-    translate(25%, -50%);
-}
-.container.closed .blade:nth-child(1) {
-  transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
-.container.closed .blade:nth-child(2) {
-  transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
-.container.closed .blade:nth-child(3) {
-  transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
-.container.closed .blade:nth-child(4) {
-  transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
-.container.closed .blade:nth-child(5) {
-  transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
-.container.closed .blade:nth-child(6) {
-  transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
-    translate(calc(25% + 1px), -1vh);
-}
+
 .btn {
   position: fixed;
   top: 50%;
@@ -79,4 +32,95 @@
   border: none;
   padding: 10px;
   border-radius: 10px;
+}
+
+.first {
+  animation: blade1 0.5s alternate 2;
+}
+.second {
+  animation: blade2 0.5s alternate 2;
+}
+.third {
+  animation: blade3 0.5s alternate 2;
+}
+.fourth {
+  animation: blade4 0.5s alternate 2;
+}
+.fifth {
+  animation: blade5 0.5s alternate 2;
+}
+.sixth {
+  animation: blade6 0.5s alternate 2;
+}
+
+@keyframes blade1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(0deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
+}
+
+@keyframes blade2 {
+  from {
+    transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(60deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
+}
+
+@keyframes blade3 {
+  from {
+    transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(120deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
+}
+
+@keyframes blade4 {
+  from {
+    transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(180deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
+}
+
+@keyframes blade5 {
+  from {
+    transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(240deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
+}
+
+@keyframes blade6 {
+  from {
+    transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
+      translate(25%, -50%);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(300deg) translate(-25%, 0)
+      translate(calc(25% + 1px), -1vh);
+  }
 }
