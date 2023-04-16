@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute top-0 z-10 w-full nav-container font-primary font-bold text-sm text-white uppercase ">
+    <div className="absolute top-0 z-10 w-full nav-container font-primary font-bold text-xl text-slate-200 uppercase ">
       <ul className="flex justify-evenly py-16 bg-gray-950 ">
         <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <Link href="/" onClick={handleOnClick}>

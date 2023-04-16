@@ -4,10 +4,30 @@ import Footer from "./footer";
 import { Context } from "../context/context";
 import { useContext } from "react";
 
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
+
 import DiaphragmAnimation from "./diaphragmAnimation";
 
 const Layout = ({ children }) => {
   const { shutterEffect } = useContext(Context);
+  const { asPath } = useRouter();
+
+  const variants = {
+    out: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    in: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        // delay: 0.5,
+      },
+    },
+  };
 
   return (
     <>
@@ -31,7 +51,17 @@ const Layout = ({ children }) => {
       <main>
         {shutterEffect && <DiaphragmAnimation />}
 
-        {children}
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={asPath}
+            variants={variants}
+            animate="in"
+            initial="out"
+            exit="out"
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
       </main>
       <footer>
         <Footer />
