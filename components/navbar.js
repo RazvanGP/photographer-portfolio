@@ -28,12 +28,12 @@ const Navbar = () => {
           </Link>
         </motion.li>
         <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <Link href="/yourEvent" onClick={handleOnClick}>
+          <Link href="/events/yourEvent" onClick={handleOnClick}>
             Your event
           </Link>
         </motion.li>
         <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <Link href="/yourEvent" onClick={handleOnClick}>
+          <Link href="/contact" onClick={handleOnClick}>
             Contact
           </Link>
         </motion.li>

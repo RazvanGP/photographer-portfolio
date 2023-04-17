@@ -1,0 +1,22 @@
+[
+     {"id": 1,
+     "name": "Event1",
+     "previewPhotos": ["/images/event1/event1_preview1.jpg",
+     "/images/event1/event1_preview2.jpg",
+     "/images/event1/event1_preview3.jpg"],
+     "photos": ["photo1","photo2","photo3"]} ,
+     {"id": 2,
+     "name": "Event2",
+     "previewPhotos": ["/images/event2/event2_preview1.jpg",
+     "/images/event2/event2_preview2.jpg",
+     "/images/event2/event2_preview3.jpg"],
+     "photos": ["photo1","photo2","photo3"]} ,
+     {"id": 3,
+     "name": "Event3",
+     "previewPhotos": ["/images/event3/event3_preview1.jpg",
+     "/images/event3/event3_preview2.jpg",
+     "/images/event3/event3_preview3.jpg"],
+     "photos": ["photo1","photo2","photo3"]} 
+    
+    
+]

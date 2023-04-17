@@ -1,7 +1,7 @@
 .container {
   pointer-events: none;
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,23 +15,11 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  border: solid 150vh black;
+  border: solid 150vh #333;
   border-top: 87vh solid transparent;
   border-bottom: 87vh solid transparent;
   border-left-color: transparent;
   transition: transform 2s linear;
-}
-
-.btn {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
 }
 
 .first {
