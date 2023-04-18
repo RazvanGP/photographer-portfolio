@@ -8,6 +8,7 @@
   height: 100%;
   background: transparent;
   transform: rotate(20deg) scale(2);
+  overflow: hidden;
 }
 .container .blade {
   height: 0;
