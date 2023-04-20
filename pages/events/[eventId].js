@@ -1,12 +1,20 @@
 import styles from "../../styles/event.module.css";
-import Image from "next/image";
-import { useRouter } from "next/router";
+
+import data from "../../json/data.json";
+
+// const photosArr = data[0].photos;
 
 const Event = () => {
-  const router = useRouter();
-  const eventId = router.query.eventId;
   return (
-    <div className="absolute top-1/2 left-1/2 text-white">Event: {eventId}</div>
+    <div className="absolute top-1/2 left-1/2 text-white">
+      {data && (
+        <div>
+          {data[0].photos.map((item) => {
+            console.log(item);
+          })}
+        </div>
+      )}
+    </div>
   );
 };
 
