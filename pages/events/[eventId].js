@@ -1,16 +1,40 @@
 import styles from "../../styles/event.module.css";
-
+import Image from "next/image";
 import data from "../../json/data.json";
-
-// const photosArr = data[0].photos;
+import { useRouter } from "next/router";
 
 const Event = () => {
+  //map routes to data and wait for the router to be ready.
+  //https://www.youtube.com/watch?v=cZYI2sOKnXA
+  const router = useRouter();
+  const { eventId } = router.query;
+
+  const photosArr = data[eventId]?.photos;
+  const randomArr = ["hLarge", "hXLarge", "vLarge", "large", ""];
+
   return (
-    <div className="absolute top-1/2 left-1/2 text-white">
+    <div className="">
       {data && (
-        <div>
-          {data[0].photos.map((item) => {
-            console.log(item);
+        <div className={styles.gallery}>
+          {photosArr?.map((photoPath) => {
+            return (
+              <div
+                className={
+                  styles.item +
+                  " " +
+                  styles[
+                    randomArr[Math.floor(Math.random() * randomArr.length)]
+                  ]
+                }
+              >
+                <Image
+                  className={styles.image}
+                  src={photoPath}
+                  alt="Picture of the author"
+                  fill
+                />
+              </div>
+            );
           })}
         </div>
       )}

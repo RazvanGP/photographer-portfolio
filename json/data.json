@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "name": "Event1",
     "previewPhotos": [
       "/images/event1/preview/event1_preview1.jpg",
@@ -19,7 +19,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 1,
     "name": "Event2",
     "previewPhotos": [
       "/images/event2/event2_preview1.jpg",
@@ -29,7 +29,7 @@
     "photos": ["photo1", "photo2", "photo3"]
   },
   {
-    "id": 3,
+    "id": 2,
     "name": "Event3",
     "previewPhotos": [
       "/images/event3/event3_preview1.jpg",

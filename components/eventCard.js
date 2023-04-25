@@ -33,7 +33,7 @@ const EventCard = ({ item }) => {
       <Link
         className=""
         href={{
-          pathname: `./${item.name}`,
+          pathname: `./${item.id}`,
         }}
       >
         <h2 className="font-primary text-3xl text-slate-300">{item.name}</h2>
