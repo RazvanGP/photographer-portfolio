@@ -1,5 +1,6 @@
-import formidable from "formidable";
+import { IncomingForm } from "formidable";
 import fs from "fs";
+import path from "path";
 
 export const config = {
   api: {
@@ -7,93 +8,48 @@ export const config = {
   },
 };
 
-//post
-
-const post = async (req, res) => {
-  const eventId = req.cookies?.eventId?.replace(/"/g, "");
-  if (!eventId) {
-    res.status(401).json({ error: "not authenticated" });
+export default async function post(req, res) {
+  if (req.method !== "POST") {
+    res.status(405).json({ message: "Method not allowed" });
     return;
   }
-  const uploadPath = `public/uploads/${eventId}/`;
+
+  //update with userbaseId
+  const eventId = req.cookies?.eventId?.replace(/"/g, "");
+
+  const uploadPath = `public/uploads/${eventId}`;
   if (!fs.existsSync(`public/uploads/${eventId}`)) {
     fs.mkdirSync(`public/uploads/${eventId}`);
   }
-  const form = new formidable.IncomingForm();
-  form.multiples = true;
-  form.uploadDir = uploadPath;
-  console.log(req);
-  console.log({ form });
+
+  const form = new IncomingForm({
+    uploadDir: uploadPath,
+    keepExtensions: true,
+  });
+
   form.parse(req, (err, fields, files) => {
     if (err) {
-      console.log(err);
+      console.error(err);
+      res.status(500).json({ message: "Upload failed" });
       return;
     }
+
+    //formidable rename files | below keep the original filename
     if (files) {
-      Object.values(files).forEach((file) => {
-        if (file.filepath.includes("invalid-name")) {
-          console.log("if-invalid-name");
-          fs.renameSync(
-            uploadPath + "/" + "/invalid-name",
-            uploadPath + "/" + file.originalFilename,
-            (error) => {
-              console.log(error);
-              res.status(500).json({ error: error });
-              return;
-            }
-          );
-        } else {
-          fs.renameSync(
-            uploadPath + "/" + file.newFilename,
-            uploadPath + "/" + file.originalFilename,
-            (error) => {
-              console.log(error);
-              res.status(500).json({ error: error });
-              return;
-            }
-          );
-        }
+      Object.values(files).forEach((file, index) => {
+        // console.log(file);
+        fs.renameSync(
+          uploadPath + "/" + file.newFilename,
+          uploadPath + "/" + file.originalFilename,
+          (error) => {
+            console.log(error);
+            res.status(500).json({ error: error });
+            return;
+          }
+        );
       });
     }
-  });
-  form.on("end", () => {
-    res.status(201).json({ status: "ok" });
-  });
-  form.on("error", (err) => {
-    console.log(err);
-    res.status(400).json({ error: err });
-  });
-};
 
-// get
-const get = async (req, res) => {
-  const userbaseId = sessionStorage.getItem("user").replace(/"/g, "");
-  const uploadPath = `public/uploads/${userbaseId}`;
-  if (fs.existsSync(`public/uploads/${userbaseId}`)) {
-    fs.readdir(uploadPath, (err, files) => {
-      if (err) res.status(500).json({ error: err });
-      res.status(200).json({ files });
-    });
-  } else {
-    res.status(200).json({ files: [] });
-  }
-};
-
-export default (req, res) => {
-  switch (req.method) {
-    case "POST":
-      post(req, res);
-      break;
-    case "DELETE":
-      console.log(req.method);
-      break;
-    case "UPDATE":
-      console.log(req.method);
-      break;
-    case "GET":
-      get(req, res);
-      break;
-    default:
-      res.status(404).send("");
-  }
-};
+    res.status(200).json({ message: "Upload successful" });
+  });
+}
