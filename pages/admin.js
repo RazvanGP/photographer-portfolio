@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import LoginModal from "../components/loginModal";
 import userbase from "userbase-js";
+import UploadFilesModal from "../components/uploadFilesModal";
 const Admin = () => {
   //   const [showLoginModal, setShowLoginModal] = useState(true);
   const [currentUserId, setCurrentUserId] = useState("");
@@ -18,12 +19,12 @@ const Admin = () => {
   };
 
   return (
-    <div
-      style={{
-        visibility: !currentUserId ? "visible" : "hidden",
-      }}
-    >
-      <LoginModal onLoginSuccess={handleOnLoginSuccess} />
+    <div>
+      {currentUserId !== process.env.NEXT_PUBLIC_ADMIN_ID ? (
+        <LoginModal onLoginSuccess={handleOnLoginSuccess} />
+      ) : (
+        <UploadFilesModal />
+      )}
     </div>
   );
 };

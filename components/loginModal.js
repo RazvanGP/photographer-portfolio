@@ -7,23 +7,6 @@ const LoginModal = ({ onLoginSuccess }) => {
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
 
-  // async function handleSignUp(e) {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   try {
-  //     const user = await userbase.signUp({
-  //       username,
-  //       password,
-  //       rememberMe: "none",
-  //     });
-  //     sessionStorage.setItem("user", user.userId);
-  //     setLoading(false);
-  //   } catch (e) {
-  //     setLoading(false);
-  //     setError(e.message);
-  //   }
-  // }
-
   async function handleLogIn(e) {
     e.preventDefault();
     setLoading(true);
