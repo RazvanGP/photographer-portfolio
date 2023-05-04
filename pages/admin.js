@@ -4,7 +4,8 @@ import userbase from "userbase-js";
 import UploadFilesModal from "../components/uploadFilesModal";
 const Admin = () => {
   //   const [showLoginModal, setShowLoginModal] = useState(true);
-  const [currentUserId, setCurrentUserId] = useState("");
+
+  const [currentUserId, setCurrentUserId] = useState();
 
   useEffect(() => {
     sessionStorage.getItem("user")
@@ -19,10 +20,12 @@ const Admin = () => {
   };
 
   return (
-    <div>
-      {currentUserId !== process.env.NEXT_PUBLIC_ADMIN_ID ? (
-        <LoginModal onLoginSuccess={handleOnLoginSuccess} />
-      ) : (
+    <div className="flex flex-col-reverse w-full h-screen items-center justify-center">
+      <LoginModal
+        onLoginSuccess={handleOnLoginSuccess}
+        onLogout={() => setCurrentUserId(undefined)}
+      />
+      {currentUserId === process.env.NEXT_PUBLIC_ADMIN_ID && (
         <UploadFilesModal />
       )}
     </div>

@@ -1,6 +1,5 @@
 import { IncomingForm } from "formidable";
 import fs from "fs";
-import path from "path";
 
 export const config = {
   api: {
@@ -8,7 +7,7 @@ export const config = {
   },
 };
 
-export default async function post(req, res) {
+function post(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ message: "Method not allowed" });
     return;
@@ -53,3 +52,32 @@ export default async function post(req, res) {
     res.status(200).json({ message: "Upload successful" });
   });
 }
+
+const get = async (req, res) => {
+  try {
+    const dirs = fs.readdirSync("public/uploads");
+    res.status(200).json({ status: "ok", dirs: dirs });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
+};
+
+export default (req, res) => {
+  switch (req.method) {
+    case "POST":
+      post(req, res);
+      break;
+    case "DELETE":
+      console.log(req.method);
+      break;
+    case "UPDATE":
+      console.log(req.method);
+      break;
+    case "GET":
+      get(req, res);
+      break;
+    default:
+      res.status(404).send("");
+  }
+};
