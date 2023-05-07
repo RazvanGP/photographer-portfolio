@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BsEye } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 import userbase from "userbase-js";
 import Cookies from "universal-cookie";
 import Loader from "./loader";
@@ -13,19 +13,23 @@ const UploadFilesModal = () => {
   const [formFirstStep, setFormFirstStep] = useState(true);
   const [loading, setLoading] = useState(false);
   const [reloadForm, setReloadForm] = useState(false);
-  // todo: remove err state
-  const [error, setError] = useState();
+  const [eventsTable, setEventsTable] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("/api/uploadFiles")
-  //     .then((res) => {
-  //       res.json().then((data) => console.log(data));
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   console.log(userbase.username);
-  // }, []);
+  useEffect(() => {
+    async function fetchUploadedFiles() {
+      fetch("/api/uploadFiles")
+        .then((res) => {
+          res.json().then((data) => {
+            setEventsTable(data.dirs);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    fetchUploadedFiles();
+  }, [reloadForm]);
 
   const handleNextFormStep = async (e) => {
     e.preventDefault();
@@ -57,10 +61,6 @@ const UploadFilesModal = () => {
     }
   };
 
-  const handlePhotosUpload = (e) => {
-    setselectedFiles(e.target.files);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -83,16 +83,47 @@ const UploadFilesModal = () => {
       console.log(res, "signed out");
 
       setReloadForm(!reloadForm);
+      // setReloadTable(!reloadTable);
       setFormFirstStep(true);
       setLoading(false);
-      alert("Event added succesfuly!");
+      // alert("Event added succesfuly!");
     } catch (err) {
-      setError(err.message);
+      console.log(err);
+    }
+  };
+
+  const handlePhotosUpload = (e) => {
+    setselectedFiles(e.target.files);
+  };
+
+  const deleteEvent = async (eventFolder) => {
+    //  onClick: delete folder from public/uploads
+    try {
+      const res = await fetch(`/api/uploadFiles?deletedEvent=${eventFolder}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      // console.log(data);
+      if (res.ok) {
+        // todo: delete user from userbase
+        console.log(`Event ${eventFolder} has been deleted.`);
+        const deletedEvent = eventsTable.find((eventName) => {
+          eventName === eventFolder;
+        });
+        setEventsTable(eventsTable.splice(deletedEvent, 1));
+        // console.log(eventsTable);
+      } else {
+        console.log(
+          `Event ${eventFolder} hasn't been deleted. Something wrong...`
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-white">
+    <div className="flex flex-col justify-center items-center text-white gap-5">
       <form
         key={reloadForm}
         className="flex flex-col justify-center  gap-5 w-full max-w-md p-5"
@@ -170,6 +201,29 @@ const UploadFilesModal = () => {
           </button>
         )}
       </form>
+      {/* delete events */}
+      <table className="">
+        <thead>
+          <tr className="text-left">
+            <th>Event Name</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {eventsTable.map((eventFolder, index) => {
+            return (
+              <tr key={eventFolder + "-" + index}>
+                <td>{eventFolder}</td>
+                <td className="text-center">
+                  <button onClick={() => deleteEvent(eventFolder)}>
+                    <FaTrashAlt className="text-red-800" />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
