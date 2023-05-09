@@ -28,21 +28,7 @@ const LoginModal = ({ onLoginSuccess, onLogout }) => {
       onLoginSuccess(user.userId);
       sessionStorage.setItem("user", user.userId);
       setIsLoggedIn(true);
-      console.log({ user });
-      try {
-        const res = await fetch(
-          `https://v1.userbase.com/v1/admin/apps/${process.env.NEXT_PUBLIC_USERBASE_APP_ID}/users`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_ACCESS_TOKEN}`,
-            },
-          }
-        );
-        const data = await res.json();
-        console.log(data);
-      } catch (err) {
-        setError(err.message);
-      }
+      // console.log({ user });
 
       setLoading(false);
     } catch (err) {
@@ -57,6 +43,7 @@ const LoginModal = ({ onLoginSuccess, onLogout }) => {
       const res = await userbase.signOut();
       console.log(res);
       sessionStorage.removeItem("user");
+      sessionStorage.removeItem("events");
       onLogout();
       setIsLoggedIn(false);
     } catch (err) {

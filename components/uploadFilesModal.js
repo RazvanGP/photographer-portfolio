@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import userbase from "userbase-js";
 import Cookies from "universal-cookie";
 import Loader from "./loader";
+import { Context } from "../context/context";
 
 const cookies = new Cookies();
 
@@ -14,20 +15,27 @@ const UploadFilesModal = () => {
   const [loading, setLoading] = useState(false);
   const [reloadForm, setReloadForm] = useState(false);
   const [eventsTable, setEventsTable] = useState([]);
+  const { setShowPasswordModal, deletedUsers } = useContext(Context);
 
   useEffect(() => {
     async function fetchUploadedFiles() {
-      fetch("/api/uploadFiles")
-        .then((res) => {
-          res.json().then((data) => {
-            setEventsTable(data.dirs);
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        //get events list
+        const res = await fetch(
+          `https://v1.userbase.com/v1/admin/apps/${process.env.NEXT_PUBLIC_USERBASE_APP_ID}/users`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_ACCESS_TOKEN}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setEventsTable(data.users);
+        // console.log(data.users);
+      } catch (error) {
+        console.log(error);
+      }
     }
-
     fetchUploadedFiles();
   }, [reloadForm]);
 
@@ -96,9 +104,13 @@ const UploadFilesModal = () => {
     setselectedFiles(e.target.files);
   };
 
-  const deleteEvent = async (eventFolder) => {
-    //  onClick: delete folder from public/uploads
+  const deleteEvent = async (eventFolder, eventName) => {
     try {
+      //todo: delete userbase user(event)
+      //open passwordModal
+      sessionStorage.setItem("tempUser", eventName);
+      setShowPasswordModal(true);
+      //delete folder from public/uploads
       const res = await fetch(`/api/uploadFiles?deletedEvent=${eventFolder}`, {
         method: "DELETE",
       });
@@ -110,8 +122,9 @@ const UploadFilesModal = () => {
         const deletedEvent = eventsTable.find((eventName) => {
           eventName === eventFolder;
         });
-        setEventsTable(eventsTable.splice(deletedEvent, 1));
+        eventsTable.splice(deletedEvent, 1);
         // console.log(eventsTable);
+        setReloadForm(!reloadForm);
       } else {
         console.log(
           `Event ${eventFolder} hasn't been deleted. Something wrong...`
@@ -210,20 +223,34 @@ const UploadFilesModal = () => {
           </tr>
         </thead>
         <tbody>
-          {eventsTable.map((eventFolder, index) => {
-            return (
-              <tr key={eventFolder + "-" + index}>
-                <td>{eventFolder}</td>
-                <td className="text-center">
-                  <button onClick={() => deleteEvent(eventFolder)}>
-                    <FaTrashAlt className="text-red-800" />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {eventsTable
+            .filter((event) => !event.deleted)
+            .map((userbaseEvent, index) => {
+              console.log({ userbaseEvent });
+              return (
+                index !== 0 && (
+                  <tr key={userbaseEvent.userId}>
+                    <td>{userbaseEvent.username}</td>
+
+                    <td className="text-center">
+                      <button
+                        onClick={() =>
+                          deleteEvent(
+                            userbaseEvent.userId,
+                            userbaseEvent.username
+                          )
+                        }
+                      >
+                        <FaTrashAlt className="text-red-800" />
+                      </button>
+                    </td>
+                  </tr>
+                )
+              );
+            })}
         </tbody>
       </table>
+      {/* toggle password modal */}
     </div>
   );
 };

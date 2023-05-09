@@ -56,8 +56,18 @@ function post(req, res) {
 
 const get = async (req, res) => {
   try {
+    const { preview } = req.query;
+    console.log({ preview: JSON.parse(preview) });
     const dirs = fs.readdirSync("public/uploads");
-    res.status(200).json({ status: "ok", dirs: dirs });
+    const images = {};
+    dirs.forEach((dir) => {
+      const files = fs.readdirSync(`public/uploads/${dir}`);
+      images[dir] = files.filter((file, index) =>
+        JSON.parse(preview) ? index < 3 : true
+      );
+      console.log(files);
+    });
+    res.status(200).json({ status: "ok", dirs: images });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error });
