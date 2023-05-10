@@ -4,7 +4,7 @@ import userbase from "userbase-js";
 import Cookies from "universal-cookie";
 import Loader from "./loader";
 import { Context } from "../context/context";
-
+import { fetchUploadedFiles } from "../sersvices/eventsServices";
 const cookies = new Cookies();
 
 const UploadFilesModal = () => {
@@ -18,25 +18,9 @@ const UploadFilesModal = () => {
   const { setShowPasswordModal, deletedUsers } = useContext(Context);
 
   useEffect(() => {
-    async function fetchUploadedFiles() {
-      try {
-        //get events list
-        const res = await fetch(
-          `https://v1.userbase.com/v1/admin/apps/${process.env.NEXT_PUBLIC_USERBASE_APP_ID}/users`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_ADMIN_ACCESS_TOKEN}`,
-            },
-          }
-        );
-        const data = await res.json();
-        setEventsTable(data.users);
-        // console.log(data.users);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchUploadedFiles();
+    fetchUploadedFiles()
+      .then((res) => setEventsTable(res))
+      .catch((error) => console.log(error));
   }, [reloadForm]);
 
   const handleNextFormStep = async (e) => {

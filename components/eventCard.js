@@ -3,40 +3,39 @@ import styles from "./styles/eventCard.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
-const EventCard = ({ item }) => {
+const EventCard = ({ imagesArr, eventKey, eventName }) => {
   return (
-    <div className="relative flex flex-col justify-around items-center h-[400px] ">
-      <div className="flex gap-28 ">
-        <Image
-          className="self-center rounded-md drop-shadow-lg"
-          src={item.previewPhotos[0]}
-          alt="Alt text for the picture"
-          width={200}
-          height={300}
-        ></Image>
-        <Image
-          className="rounded-md drop-shadow-lg absolute left-1/3 bottom-1/4 z-[2]"
-          src={item.previewPhotos[1]}
-          alt="Alt text for the picture"
-          width={200}
-          height={300}
-        ></Image>
-        <Image
-          className="self-center rounded-md drop-shadow-lg"
-          src={item.previewPhotos[2]}
-          alt="Alt text for the picture"
-          width={200}
-          height={300}
-        ></Image>
+    <div className="flex flex-col justify-center items-center gap-5">
+      <div className="flex gap-3">
+        {/* {imagesArr.map((image) => {
+          <Image
+            className="self-center rounded-md drop-shadow-lg"
+            src={`/uploads/${eventKey}/${image}`}
+            alt="Alt text for the picture"
+            width={200}
+            height={300}
+          ></Image>;
+        })} */}
+        {imagesArr.map((image) => (
+          <>
+            <img
+              className="object-cover object-center rounded-md drop-shadow-lg"
+              src={`/uploads/${eventKey}/${image}`}
+              alt="Alt text for the picture"
+              width={200}
+            ></img>
+            ;
+          </>
+        ))}
       </div>
 
       <Link
         className=""
         href={{
-          pathname: `./${item.id}`,
+          pathname: `./${eventKey}`,
         }}
       >
-        <h2 className="font-primary text-3xl text-slate-300">{item.name}</h2>
+        <h2 className="font-primary text-3xl text-slate-300">{eventName}</h2>
       </Link>
     </div>
   );
