@@ -25,7 +25,7 @@ const Admin = () => {
 
   return (
     <div className="relative h-full">
-      <div className="flex flex-col-reverse w-full h-screen items-center justify-center gap-5">
+      <div className="flex flex-col-reverse w-full py-20 items-center justify-center gap-5">
         <LoginModal
           onLoginSuccess={handleOnLoginSuccess}
           onLogout={() => setCurrentUserId(undefined)}

@@ -43,10 +43,10 @@ const Layout = ({ children }) => {
           rel="stylesheet"
         />
       </Head>
-      <header>
+      <header className="sticky top-0 z-10">
         <Navbar />
       </header>
-      <main>
+      <main className="overflow-auto">
         {shutterEffect && <DiaphragmAnimation />}
 
         <AnimatePresence initial={false}>

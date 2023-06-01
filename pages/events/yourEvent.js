@@ -27,7 +27,7 @@ const YourEvent = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen flex flex-wrap justify-center items-center gap-20 mt-48 mb-48">
+    <div className="w-full flex flex-wrap justify-center items-center gap-20 mt-48 mb-48">
       {/* {events.map((item) => {
         
       })} */}
