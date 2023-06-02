@@ -50,7 +50,10 @@ const Contact = () => {
     setShowLoading(false);
   };
 
-  const onCaptchaChange = () => {
+  const onCaptchaChange = (token) => {
+    if (!token) {
+      return;
+    }
     setIsVerified(true);
   };
 
@@ -134,25 +137,27 @@ const Contact = () => {
                   </div>
                 ) : null}
 
-                <div className="mb-4">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                    onChange={onCaptchaChange}
-                    hl="en"
-                  />
+                <div className="p-2">
+                  <div className="mb-4">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                      onChange={onCaptchaChange}
+                      hl="en"
+                    />
+                  </div>
+                  <button
+                    className={
+                      showLoading || isVerified === false
+                        ? "w-full border-2 border-gray-500 text-gray-500 rounded-xl p-2 hover: uppercase"
+                        : "w-full border-2 border-green-600 bg- text-green-600 rounded-xl p-2 hover: cursor-pointer uppercase"
+                    }
+                    type="submit"
+                    disabled={showLoading || isVerified === false}
+                  >
+                    Trimite
+                  </button>
                 </div>
-                <button
-                  className={
-                    showLoading || isVerified === false
-                      ? "w-full border-2 border-gray-500 text-gray-500 rounded-xl p-2 hover: uppercase"
-                      : "w-full border-2 border-green-600 bg- text-green-600 rounded-xl p-2 hover: cursor-pointer uppercase"
-                  }
-                  type="submit"
-                  disabled={showLoading || isVerified === false}
-                >
-                  Trimite
-                </button>
               </div>
             </form>
           </div>
