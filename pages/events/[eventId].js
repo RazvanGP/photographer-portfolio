@@ -3,6 +3,9 @@ import Image from "next/image";
 // import data from "../../json/data.json";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import PhotoViewer from "../../components/photoViewer";
+import { useContext } from "react";
+import { Context } from "../../context/context";
 
 const Event = () => {
   const [photosArr, setPhotosArr] = useState([]);
@@ -10,13 +13,18 @@ const Event = () => {
   const router = useRouter();
   const { eventId } = router.query;
 
+  const [photoIndex, setPhotoIndex] = useState();
+  const { photoViewerOpen, setPhotoViewerOpen } = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     async function fetchUploadedFiles() {
       fetch("/api/uploadFiles?preview=false")
         .then((res) => {
           res.json().then((data) => {
             setPhotosArr(data.dirs[eventId]);
-            console.log(photosArr);
+            // console.log(photosArr);
+            setIsLoading(false);
           });
         })
         .catch((error) => {
@@ -24,7 +32,7 @@ const Event = () => {
         });
     }
     fetchUploadedFiles();
-  }, []);
+  }, [eventId]);
 
   //map routes to data and wait for the router to be ready.
   //https://www.youtube.com/watch?v=cZYI2sOKnXA
@@ -37,8 +45,8 @@ const Event = () => {
   return (
     <div className="">
       {photosArr && (
-        <div className={styles.gallery}>
-          {photosArr?.map((imgName) => {
+        <div className={!photoViewerOpen ? styles.gallery : "overflow-hidden"}>
+          {photosArr?.map((imgName, index) => {
             return (
               <div
                 className={
@@ -48,17 +56,34 @@ const Event = () => {
                     randomArr[Math.floor(Math.random() * randomArr.length)]
                   ]
                 }
+                key={imgName + "_" + index}
               >
                 <Image
                   className={styles.image}
                   src={`/uploads/${eventId}/${imgName}`}
                   alt="Picture of the author"
                   fill
+                  onClick={() => {
+                    setPhotoIndex(index);
+                    setPhotoViewerOpen(true);
+                  }}
+                  loading="lazy"
+                  onLoadingComplete={() => {
+                    setIsLoading(false);
+                  }}
                 />
               </div>
             );
           })}
         </div>
+      )}
+
+      {photoViewerOpen && (
+        <PhotoViewer
+          photosArr={photosArr}
+          eventId={eventId}
+          photoIndex={photoIndex}
+        />
       )}
     </div>
   );

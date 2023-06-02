@@ -16,14 +16,17 @@ const EventCard = ({ imagesArr, eventKey, eventName }) => {
             height={300}
           ></Image>;
         })} */}
-        {imagesArr.map((image) => (
+        {imagesArr.map((image, index) => (
           <>
-            <img
+            <Image
+              key={index + "__" + "image"}
               className="object-cover object-center rounded-md drop-shadow-lg"
               src={`/uploads/${eventKey}/${image}`}
               alt="Alt text for the picture"
               width={200}
-            ></img>
+              height={200}
+              loading="lazy"
+            ></Image>
             ;
           </>
         ))}

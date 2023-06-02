@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [deletedUsers, setDeletedUsers] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [photoViewerOpen, setPhotoViewerOpen] = useState(false);
 
   return (
     <Context.Provider
@@ -18,6 +19,8 @@ function Provider({ children }) {
         setDeletedUsers,
         menuOpen,
         setMenuOpen,
+        photoViewerOpen,
+        setPhotoViewerOpen,
       }}
     >
       {children}

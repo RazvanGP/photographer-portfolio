@@ -199,7 +199,7 @@ const UploadFilesModal = () => {
         )}
       </form>
       {/* delete events */}
-      <table className="">
+      <table className="w-48">
         <thead>
           <tr className="text-left">
             <th>Event Name</th>
@@ -212,7 +212,7 @@ const UploadFilesModal = () => {
             .map((userbaseEvent, index) => {
               console.log({ userbaseEvent });
               return (
-                index !== 0 && (
+                userbaseEvent.username !== "admin" && (
                   <tr key={userbaseEvent.userId}>
                     <td>{userbaseEvent.username}</td>
 

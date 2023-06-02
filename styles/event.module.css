@@ -1,5 +1,5 @@
 .gallery {
-  padding: 200px;
+  padding: 100px;
   display: grid;
   grid-gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -25,6 +25,7 @@
   cursor: pointer;
   counter-increment: item-counter;
   overflow: hidden;
+  width: auto;
 }
 
 .image {
