@@ -5,6 +5,7 @@ function Provider({ children }) {
   const [shutterEffect, setShutterEffect] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [deletedUsers, setDeletedUsers] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <Context.Provider
@@ -15,6 +16,8 @@ function Provider({ children }) {
         setShowPasswordModal,
         deletedUsers,
         setDeletedUsers,
+        menuOpen,
+        setMenuOpen,
       }}
     >
       {children}

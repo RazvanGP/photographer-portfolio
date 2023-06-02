@@ -1,26 +1,23 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import ReCAPTCHA from "react-google-recaptcha";
+import Loader from "../components/loader";
 
 const Contact = () => {
   const [showError, setShowError] = useState(true);
   const [error, setError] = useState("");
-  const [showLoading, setShowLoading] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const recaptchaRef = useRef();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    recaptchaRef.current.reset();
-  }, []);
+  const initialFormData = {
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setShowLoading(true);
-
-    // todo: send emails
-
-    // setError("Emailul nu a fost trimis, te rog sa ma contactezi telefonic.");
-    // console.log("Form send");
+    setLoading(true);
 
     try {
       const response = await fetch("/api/send-email", {
@@ -29,32 +26,26 @@ const Contact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: event.target.name.value,
-          email: event.target.email.value,
-          phone: event.target.phone.value,
-          message: event.target.message.value,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
         }),
       });
 
       if (response.ok) {
-        // setShowModal(true);
         alert("Mesajul a fost trimis cu succes!");
       } else {
         setShowError(true);
       }
     } catch (error) {
+      setError(error);
+      console.log(error.message);
       setShowError(true);
     }
 
-    event.target.reset();
-    setShowLoading(false);
-  };
-
-  const onCaptchaChange = (token) => {
-    if (!token) {
-      return;
-    }
-    setIsVerified(true);
+    setFormData(initialFormData);
+    setLoading(false);
   };
 
   return (
@@ -81,6 +72,10 @@ const Contact = () => {
                     name="name"
                     minLength={3}
                     required={true}
+                    value={formData.name}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                    }}
                     className="p-1 rounded-md w-full bg-stone-300"
                   />
                 </div>
@@ -96,6 +91,10 @@ const Contact = () => {
                     id="email"
                     name="email"
                     required={true}
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                    }}
                     className="p-1 rounded-md w-full bg-stone-300"
                   />
                 </div>
@@ -111,6 +110,10 @@ const Contact = () => {
                     id="phone"
                     name="phone"
                     pattern="[+ 0-9]{7,15}"
+                    value={formData.phone}
+                    onChange={(e) => {
+                      setFormData({ ...formData, phone: e.target.value });
+                    }}
                     className="p-1 rounded-md w-full bg-stone-300"
                   />
                 </div>
@@ -125,6 +128,10 @@ const Contact = () => {
                     id="message"
                     name="message"
                     required={true}
+                    value={formData.message}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                    }}
                     className="contact-input h-32 w-full resize-none leading-6 p-1 rounded-md bg-stone-300"
                   ></textarea>
                 </div>
@@ -137,27 +144,17 @@ const Contact = () => {
                   </div>
                 ) : null}
 
-                <div className="p-2">
-                  <div className="mb-4">
-                    <ReCAPTCHA
-                      ref={recaptchaRef}
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                      onChange={onCaptchaChange}
-                      hl="en"
-                    />
-                  </div>
-                  <button
-                    className={
-                      showLoading || isVerified === false
-                        ? "w-full border-2 border-gray-500 text-gray-500 rounded-xl p-2 hover: uppercase"
-                        : "w-full border-2 border-green-600 bg- text-green-600 rounded-xl p-2 hover: cursor-pointer uppercase"
-                    }
-                    type="submit"
-                    disabled={showLoading || isVerified === false}
-                  >
-                    Trimite
-                  </button>
-                </div>
+                <button
+                  className={
+                    loading || error
+                      ? "w-full border-2 border-gray-500 text-gray-500 rounded-xl p-2 hover: uppercase"
+                      : "w-full border-2 border-blue-400 bg- text-blue-400 rounded-xl p-2 hover: cursor-pointer uppercase"
+                  }
+                  type="submit"
+                  disabled={loading}
+                >
+                  Trimite
+                </button>
               </div>
             </form>
           </div>

@@ -10,7 +10,7 @@ const badScript = Bad_Script({
 
 const About = () => {
   return (
-    <div className="w-full bg-zinc-800 flex flex-col-reverse lg:flex-row items-center justify-evenly py-10">
+    <div className="w-full bg-stone-900 flex flex-col-reverse lg:flex-row items-center justify-evenly py-10">
       <div
         className={`p-5 md:p-10 lg:w-1/2 text-stone-300 flex flex-col gap-5 md:text-2xl ${badScript.className}`}
       >
