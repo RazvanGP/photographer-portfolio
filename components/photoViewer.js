@@ -51,7 +51,7 @@ const PhotoViewer = ({ photosArr, eventId, photoIndex }) => {
           </button>
         </div>
         <button
-          className="absolute top-[20%] right-[-60px] bg-white rounded-full opacity-50"
+          className="absolute top-[20%] right-[5%] bg-white rounded-full opacity-50"
           onClick={closeViewer}
         >
           <AiOutlineClose size={32} />
