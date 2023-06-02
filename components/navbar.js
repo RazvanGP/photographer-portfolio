@@ -41,7 +41,6 @@ const Navbar = () => {
           className="block sm:hidden border-2 p-2 rounded-lg"
           onClick={() => {
             setMenuOpen(!menuOpen);
-            console.log(menuOpen);
           }}
         >
           <AiOutlineMenu />
